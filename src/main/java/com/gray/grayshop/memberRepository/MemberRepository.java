@@ -1,6 +1,7 @@
 package com.gray.grayshop.memberRepository;
 
 import com.gray.grayshop.memberVo.Member;
+import com.gray.grayshop.memberVo.MemberForm;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,15 +13,16 @@ public class MemberRepository {
     @PersistenceContext
     EntityManager em;
 
-    public Long save(Member member){
+    public void save(Member member){
 
         em.persist(member);
-        return member.getId();
+
     }
 
-    public Member find(Long id){
+    public MemberForm find(Long id){
 
-        return em.find(Member.class, id);
+        return em.find(MemberForm.class, id);
     }
+
 
 }
