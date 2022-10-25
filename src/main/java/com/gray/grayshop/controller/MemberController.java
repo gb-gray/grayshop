@@ -32,12 +32,9 @@ public class MemberController {
 
     @PostMapping("/join/new")
     public String create(MemberForm form, BindingResult result){
-        System.out.println("2");
-        System.out.println(form.getUsername());
-
         Member member = new Member();
-
-        member.setUsername(form.getUsername());
+        member.setUser_id(form.getUser_id());
+        member.setUser_name(form.getUser_name());
 
         memberService.join(member);
 

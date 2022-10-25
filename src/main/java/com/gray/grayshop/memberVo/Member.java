@@ -17,5 +17,12 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String username;
+    private String user_id;
+    private String user_name;
+    private String address;
+    private String email;
+    private int phone1;
+    private int phone2;
+    private int phone3;
+
 }

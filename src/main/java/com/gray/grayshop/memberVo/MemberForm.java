@@ -10,6 +10,7 @@ import javax.persistence.Id;
 @Getter @Setter
 public class MemberForm {
 
-    private String username;
+    private String user_id;
+    private String user_name;
 
 }
