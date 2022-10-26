@@ -13,7 +13,8 @@ import javax.persistence.Id;
 @Getter @Setter
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
@@ -22,6 +23,4 @@ public class Member {
     private String address;
     private String email;
     private int phone1;
-    private int phone2;
-
 }
