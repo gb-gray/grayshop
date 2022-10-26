@@ -6,8 +6,8 @@
 </head>
 <body>
     <form role="form" action="/join/new" method="post" th:object="${memberForm}">
-        <input th:for="id" type="text" placeholder="아이디"> <button>중복확인</button> <br>
-        <input th:field="*{username}" type="text" placeholder="이름"> <br>
+        <input th:field="*{user_id}" type="text" placeholder="아이디"> <button>중복확인</button> <br>
+        <input th:field="*{user_name}" type="text" placeholder="이름"> <br>
         <button type="submit">회원가입</button>
     </form>
 </body>
