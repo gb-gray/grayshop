@@ -23,6 +23,5 @@ public class Member {
     private String email;
     private int phone1;
     private int phone2;
-    private int phone3;
 
 }
