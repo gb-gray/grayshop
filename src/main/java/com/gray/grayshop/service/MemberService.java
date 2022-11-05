@@ -22,4 +22,24 @@ public class MemberService {
         return member.getId();
     }
 
+    public String userCheck(String user_id){
+        String text = "";
+        System.out.println("service");
+        List<Member> member = memberRepository.userCheck(user_id);
+
+        if(!member.isEmpty()){
+            text = "이미 존재하는 회원입니다.";
+        }else{
+            text = "사용할 수 있는 아이디입니다.";
+        }
+
+        return text;
+//        if(user_id.equals(member.get(0).getUser_id())){
+//             text = "이미 존재하는 아이디입니다.";
+//
+//        }else{
+//            text = "사용할 수 있는 아이디입니다.";
+//        }
+    }
+
 }
