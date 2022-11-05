@@ -5,10 +5,33 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form role="form" action="/join/new" method="post" th:object="${memberForm}">
-        <input th:field="*{user_id}" type="text" placeholder="아이디"> <button>중복확인</button> <br>
-        <input th:field="*{user_name}" type="text" placeholder="이름"> <br>
-        <button type="submit">회원가입</button>
-    </form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function userCheck() {
+        let check = [[${msg}]];
+        document.getElementById('msg').innerText = check;
+
+
+    }
+
+    /*]]>*/
+</script>
+    <form role="form" action="/join/new" method="post" th:object="${memberForm}">-->
+        <input th:field="*{user_id}" type="text" placeholder="아이디"> <a onchange="userCheck()">중복확인</a> <br>-->
+        <input th:field="*{user_name}" type="text" placeholder="이름"> <br>-->
+        <button type="submit">회원가입</button>-->
+    </form>-->
+
+<form role="form" action="/join/check" method="post" th:object="${memberForm}">-->
+    <input th:field="*{user_id}" type="text" placeholder="아이디">-->
+    <input th:field="*{user_name}" type="text" placeholder="이름"> <br>-->
+    <button type="submit">중복</button>-->
+</form>
+    <a id="msg"></a>
+<!--<button onclick="location.href='index'">뒤로</button>-->
+
+
 </body>
+
+
 </html>

@@ -24,7 +24,6 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(Model model){
-        System.out.println("1");
         model.addAttribute("memberForm", new MemberForm());
 
         return "join";
@@ -39,5 +38,19 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    @PostMapping("/join/check")
+    public String findUser(MemberForm memberForm, Model model){
+        String userCheck = "";
+        userCheck = memberForm.getUser_id();
+
+        String text = memberService.userCheck(userCheck);
+
+        System.out.println(text);
+
+        model.addAttribute("msg", text);
+
+        return "join";
     }
 }
