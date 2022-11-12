@@ -8,8 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,17 +39,17 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @PostMapping("/join/check")
-    public String findUser(MemberForm memberForm, Model model){
-        String userCheck = "";
-        userCheck = memberForm.getUser_id();
-
+    @RequestMapping("/join/check")
+    @ResponseBody
+    public String findUser(@RequestParam("data") String data, Model model){
+        String userCheck = data;
+        System.out.println(userCheck);
         String text = memberService.userCheck(userCheck);
 
         System.out.println(text);
 
-        model.addAttribute("msg", text);
+        //model.addAttribute("msg", text);
 
-        return "join";
+        return text;
     }
 }
