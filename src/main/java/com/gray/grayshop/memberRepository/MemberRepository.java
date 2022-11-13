@@ -25,8 +25,8 @@ public class MemberRepository {
         System.out.println("repository");
 
         return em.createQuery("select m from Member m where m.user_id = :user_id", Member.class)
-                      .setParameter("user_id", user_id)
-                      .getResultList();
+                .setParameter("user_id", user_id)
+                .getResultList();
 
     }
 
