@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
@@ -52,4 +53,21 @@ public class MemberController {
 
         return text;
     }
+
+    //로그인
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("member", new Member());
+        return "login";
+    }
+
+    //로그인프로
+    @PostMapping("/loginPro")
+    public String loginPro(Member member){
+        System.out.println(member.getUser_id() + member.getUser_name());
+
+        return "redirect:/";
+    }
+
+
 }
