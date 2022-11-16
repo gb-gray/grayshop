@@ -30,4 +30,15 @@ public class MemberRepository {
 
     }
 
+
+    public Long count(String user_id, String user_name){
+       // System.out.println("여기까지오는게맞나요?");
+         Long result = em.createQuery("select count(m) from Member m where m.user_id = :user_id and m.user_name = :user_name", Long.class)
+                 .setParameter("user_id", user_id)
+                 .setParameter("user_name", user_name)
+                 .getSingleResult();
+
+        return result;
+    }
+
 }

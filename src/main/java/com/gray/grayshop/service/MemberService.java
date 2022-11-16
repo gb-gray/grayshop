@@ -43,6 +43,12 @@ public class MemberService {
 //        }
     }
 
+    //로그인
+    public long count (Member member) {
+       // System.out.println(member.getUser_id() + " "+ member.getUser_name());
+        return memberRepository.count(member.getUser_id(), member.getUser_name());
+    }
+
 
 
 }
