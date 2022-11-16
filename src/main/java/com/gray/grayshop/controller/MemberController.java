@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -63,9 +65,12 @@ public class MemberController {
 
     //로그인프로
     @PostMapping("/loginPro")
-    public String loginPro(Member member){
+    public String loginPro(Member member,Model model){
         System.out.println(member.getUser_id() + member.getUser_name());
+        Long result = memberService.count(member);
+        System.out.println("다 갔다옴"+result);
 
+        model.addAttribute("loginCh",Long.toString(result));
         return "redirect:/";
     }
 
