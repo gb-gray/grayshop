@@ -4,36 +4,39 @@
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script th:inline="javascript">
-    function userCheck(){
-        var data = document.getElementById('userId').value;
-        var sendData = 'data='+data;
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
 
-         $.ajax({
-             url: "/join/check"
-             , data: sendData
-             , method: 'POST'
-             , success: function (text) {
-                 document.getElementById('msg').innerText = text;
-             }
-         });
-    }
+    <script th:inline="javascript">
+        function userCheck(){
+            var data = document.getElementById('userId').value;
+            var sendData = 'data='+data;
 
+             $.ajax({
+                 url: "/join/check"
+                 , data: sendData
+                 , method: 'POST'
+                 , success: function (text) {
+                     document.getElementById('msg').innerText = text;
+                 }
+             });
+        }
+    </script>
 
-</script>
 <body>
-
-
-    <form role="form" action="/join/new" method="post" th:object="${memberForm}">
-        <input id="userId" th:field="*{user_id}" type="text" placeholder="아이디"> <input id="check" type="button" value="중복확인" onclick="userCheck()"/> <br>
-        <a id="msg"></a> <br>
-        <input th:field="*{user_name}" type="text" placeholder="이름"> <br>
-        <input id="pwd" type="password" th:field="*{password}" placeholder="비밀번호"> <br>
-        <input id="pwd2" type="password" placeholder="비밀번호 확인"> <br>
-        <input type="text" th:field="*{address}"> <br>
-        <button type="submit">회원가입</button>
-    </form>
-
+    <h1 class="title">회원가입</h1>
+    <div class="joinForm">
+        <div class="form">
+            <form role="form" action="/join/new" method="post" th:object="${memberForm}">
+                <input  id="userId" th:field="*{user_id}" type="text" placeholder="아이디"> <input id="check" type="button" value="중복확인" onclick="userCheck()"/> <br>
+                <a id="msg"></a><br>
+                <input  th:field="*{user_name}" type="text" placeholder="이름"> <br>
+                <input  id="pwd" type="password" th:field="*{password}" placeholder="비밀번호"> <br>
+                <input  id="pwd2" type="password" placeholder="비밀번호 확인"> <br>
+                <input  type="text" th:field="*{address}"> <br>
+                <button type="submit" class="btn-join">회원가입</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 
