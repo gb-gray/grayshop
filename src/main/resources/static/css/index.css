@@ -1,0 +1,20 @@
+
+.joinForm {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.form {
+
+    margin: auto;
+}
+
+.btn-join {
+    margin: 30px;
+}
+
+#msg {
+    color: darkblue;
+}
+
