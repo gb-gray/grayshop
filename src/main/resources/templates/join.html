@@ -18,6 +18,8 @@
              }
          });
     }
+
+
 </script>
 <body>
 
@@ -26,6 +28,9 @@
         <input id="userId" th:field="*{user_id}" type="text" placeholder="아이디"> <input id="check" type="button" value="중복확인" onclick="userCheck()"/> <br>
         <a id="msg"></a> <br>
         <input th:field="*{user_name}" type="text" placeholder="이름"> <br>
+        <input id="pwd" type="password" th:field="*{password}" placeholder="비밀번호"> <br>
+        <input id="pwd2" type="password" placeholder="비밀번호 확인"> <br>
+        <input type="text" th:field="*{address}"> <br>
         <button type="submit">회원가입</button>
     </form>
 

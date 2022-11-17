@@ -36,6 +36,10 @@ public class MemberController {
         Member member = new Member();
         member.setUser_id(form.getUser_id());
         member.setUser_name(form.getUser_name());
+        member.setPassword(form.getPassword());
+        member.setPhone(form.getPhone());
+        member.setAddress(form.getAddress());
+        member.setEmail(form.getEmail());
 
         memberService.join(member);
 
@@ -44,7 +48,7 @@ public class MemberController {
 
     @RequestMapping("/join/check")
     @ResponseBody
-    public String findUser(@RequestParam("data") String data, Model model){
+    public String findUser(@RequestParam("data") String data){
         String userCheck = data;
         System.out.println(userCheck);
         String text = memberService.userCheck(userCheck);
@@ -66,12 +70,20 @@ public class MemberController {
     //로그인프로
     @PostMapping("/loginPro")
     public String loginPro(Member member,Model model){
-        System.out.println(member.getUser_id() + member.getUser_name());
+        System.out.println(member.getUser_id() +" / " + member.getPassword());
         Long result = memberService.count(member);
-        System.out.println("다 갔다옴"+result);
+        //System.out.println("다 갔다옴"+result);
 
-        model.addAttribute("loginCh",Long.toString(result));
-        return "redirect:/";
+        model.addAttribute("loginCh",result);
+        return "login";
+    }
+
+    //로그인 성공
+    @GetMapping("/login/index")
+    public String loginSuccess(@RequestParam("data") String data){
+        System.out.println("로그인 성공" + data);
+
+        return "loginIndex";
     }
 
 

@@ -4,12 +4,22 @@
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let msg = [[${loginCh}]];
+    if(msg == 0) {
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+    }else if(msg == 1){
+        location.href = "/login/index?data=" + msg
+    }
+    /*]]>*/
 
+</script>
+<body>
 
     <form th:action="@{/loginPro}" th:object="${member}" method="post">
         <input type="text" th:field="*{user_id}"  placeholder="아이디">
-        <input type="password" th:field="*{user_name}"  placeholder="비밀번호">
+        <input type="password" th:field="*{password}"  placeholder="비밀번호">
         <button type="submit">로그인</button>
     </form>
 

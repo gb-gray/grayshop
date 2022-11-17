@@ -12,5 +12,8 @@ public class MemberForm {
 
     private String user_id;
     private String user_name;
-
+    private String password;
+    private String address;
+    private String email;
+    private int phone;
 }
