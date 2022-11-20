@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -19,6 +20,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/index")
+    @RequestMapping(value="/")
     public String index(Model model){
 
         return "index";
@@ -69,16 +71,32 @@ public class MemberController {
 
     //로그인프로
     @PostMapping("/loginPro")
-    public String loginPro(Member member,Model model){
+    public String loginPro(Member member, Model model, HttpServletRequest request){
         System.out.println(member.getUser_id() +" / " + member.getPassword());
         System.out.println(member.getUser_name());
         Long result = memberService.count(member);
-        //System.out.println("다 갔다옴"+result);
+        String user_id = member.getUser_id();
+        HttpSession session = request.getSession();
+        String aa = "";
 
+        // 아이디 비번이 일치하면
+        if(result == 1){
+            Member getMember = memberService.findByMemberInfo(user_id);
+            
+            session.setAttribute("user_id", member.getUser_name());
+            System.out.println("인덱스 " +getMember.getUser_name());
+            aa = "index";
+        } else {
+            aa = "login";
+            System.out.println("로그인");
+        }
+
+        //System.out.println("다 갔다옴"+result);
+        
         model.addAttribute("loginCh",result);
         model.addAttribute("user_id", member.getUser_id());
         model.addAttribute("user_name", member.getUser_name());
-        return "login";
+        return aa;
     }
 
     //로그인 성공

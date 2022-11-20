@@ -41,4 +41,11 @@ public class MemberRepository {
         return result;
     }
 
+    //유저 정보가져오기
+    public Member findByMemberInfo(String user_id){
+        return em.createQuery("select m from Member m where m.user_id = :user_id", Member.class)
+                .setParameter("user_id", user_id)
+                .getSingleResult();
+    }
+
 }

@@ -3,6 +3,7 @@
 <head>
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -19,12 +20,31 @@
 
 </script>
 <body>
+    <header>
+        <div class="inner">
+            <div class="head-container">
+                <div><button class="member-btn" onclick="location.href='login'">로그인</button></div>
+                <div><button class="member-btn" onclick="location.href='join'">회원가입</button></div>
+            </div>
+            <div class="logo-container">
+                <div><p class="banner">GRAY SHOP</p></div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="loginForm-container">
+                <form class="loginForm" th:action="@{/loginPro}" th:object="${member}" method="post">
+                    <div class="login-input"><input type="text" th:field="*{user_id}"  placeholder="아이디를 입력해주세요"></div>
+                    <div class="login-input"><input type="password" th:field="*{password}"  placeholder="비밀번호를 입력해주세요"><div>
+                    <div class="login-btn"><button type="submit">로그인</button><div>
+                    <div class="join-btn"><a type="button">회원가입</a><div>
+                </form>
 
-    <form th:action="@{/loginPro}" th:object="${member}" method="post">
-        <input type="text" th:field="*{user_id}"  placeholder="아이디">
-        <input type="password" th:field="*{password}"  placeholder="비밀번호">
-        <button type="submit">로그인</button>
-    </form>
+        </div>
+    </section>
+    <footer></footer>
+
+
 
 </body>
 </html>
