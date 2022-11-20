@@ -20,20 +20,52 @@
                  }
              });
         }
+        function pwdCheck() {
+            var frm = document.getElementById('frm');
+            var userName = document.getElementById('userName').value;
+            var userId = document.getElementById('userId').value;
+            var pwd = document.getElementById('pwd').value;
+            var pwd2 = document.getElementById('pwd2').value;
+            var idCheck = document.getElementById('check').value;
+
+            if (pwd != pwd2) {
+                alert("비밀번호가 일치하지 않습니다.");
+                pwd2.focus();
+                return false;
+            } else if (pwd == "" || pwd2 == "") {
+                alert("비밀번호를 입력해 주세요.");
+                pwd2.focus();
+                return false;
+            } else if (userName == "") {
+                alert("이름을 입력해 주세요.");
+                userName.focus();
+                return false;
+            } else if (userId == "") {
+                alert("아이디를 입력해 주세요.");
+                userId.focus();
+                return false;
+            }else if(idCheck == "") {
+                alert("아이디 중복확인을 해주세요.");
+                idCheck.focus();
+                return false;
+            }else{
+                frm.submit();
+            }
+        }
     </script>
 
 <body>
     <h1 class="title">회원가입</h1>
     <div class="joinForm">
         <div class="form">
-            <form role="form" action="/join/new" method="post" th:object="${memberForm}">
+            <form id="frm" role="form" action="/join/new" method="post" th:object="${memberForm}">
                 <input  id="userId" th:field="*{user_id}" type="text" placeholder="아이디"> <input id="check" type="button" value="중복확인" onclick="userCheck()"/> <br>
                 <a id="msg"></a><br>
-                <input  th:field="*{user_name}" type="text" placeholder="이름"> <br>
+                <input  id="userName" th:field="*{user_name}" type="text" placeholder="이름"> <br>
                 <input  id="pwd" type="password" th:field="*{password}" placeholder="비밀번호"> <br>
                 <input  id="pwd2" type="password" placeholder="비밀번호 확인"> <br>
-                <input  type="text" th:field="*{address}"> <br>
-                <button type="submit" class="btn-join">회원가입</button>
+                <input  id="address" type="text" th:field="*{address}"> <br>
+                <button type="button" class="btn-join" onclick="pwdCheck()">회원가입</button>
             </form>
         </div>
     </div>
