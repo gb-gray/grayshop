@@ -49,6 +49,10 @@ public class MemberService {
         return memberRepository.count(member.getUser_id(), member.getPassword());
     }
 
+    //유저 정보가져오기
+    public Member findByMemberInfo(String user_id){
+        return memberRepository.findByMemberInfo(user_id);
+    }
 
 
 }
