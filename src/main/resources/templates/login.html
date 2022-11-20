@@ -7,10 +7,13 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     let msg = [[${loginCh}]];
+    let user_id = [[${user_id}]];
+    let user_name = [[${user_name}]];
+
     if(msg == 0) {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
     }else if(msg == 1){
-        location.href = "/login/index?data=" + msg
+        location.href = "/login/index?user_id=" + user_id + "&user_name=" + user_name
     }
     /*]]>*/
 

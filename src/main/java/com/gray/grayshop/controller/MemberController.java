@@ -71,18 +71,26 @@ public class MemberController {
     @PostMapping("/loginPro")
     public String loginPro(Member member,Model model){
         System.out.println(member.getUser_id() +" / " + member.getPassword());
+        System.out.println(member.getUser_name());
         Long result = memberService.count(member);
         //System.out.println("다 갔다옴"+result);
 
         model.addAttribute("loginCh",result);
+        model.addAttribute("user_id", member.getUser_id());
+        model.addAttribute("user_name", member.getUser_name());
         return "login";
     }
 
     //로그인 성공
     @GetMapping("/login/index")
-    public String loginSuccess(@RequestParam("data") String data){
-        System.out.println("로그인 성공" + data);
+    public String loginSuccess(@RequestParam("user_id") String user_id, @RequestParam("user_name") String user_name,
+    Model model){
 
+        System.out.println(user_id);
+        System.out.println(user_name);
+
+        model.addAttribute("user_id", user_id);
+        model.addAttribute("user_name", user_name);
         return "loginIndex";
     }
 
