@@ -21,7 +21,8 @@ public class Member {
     private String user_id;
     private String user_name;
     private String password;
+    private String zipCode;
     private String address;
     private String email;
-    private int phone;
+    private String phone;
 }
