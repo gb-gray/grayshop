@@ -39,9 +39,10 @@ public class MemberController {
         member.setUser_id(form.getUser_id());
         member.setUser_name(form.getUser_name());
         member.setPassword(form.getPassword());
-        member.setPhone(form.getPhone());
-        member.setAddress(form.getAddress());
-        member.setEmail(form.getEmail());
+        member.setPhone(form.getPhone().replaceAll("-", ""));
+        member.setZipCode(form.getZipCode());
+        member.setAddress(form.getAddress() + " " + form.getAddressDtl());
+        member.setEmail(form.getEmail() + "@" + form.getEmailOption());
 
         memberService.join(member);
 

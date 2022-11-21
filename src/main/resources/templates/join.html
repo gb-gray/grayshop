@@ -4,6 +4,7 @@
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="../css/index.css">-->
 
     <script th:inline="javascript">
@@ -20,37 +21,94 @@
                  }
              });
         }
-        function pwdCheck() {
+        function joinCheck() {
             var frm = document.getElementById('frm');
             var userName = document.getElementById('userName').value;
             var userId = document.getElementById('userId').value;
             var pwd = document.getElementById('pwd').value;
             var pwd2 = document.getElementById('pwd2').value;
-            var idCheck = document.getElementById('check').value;
+            var idCheck = document.getElementById('msg').text;
+            var pwdCheck = document.getElementById('pwdMsg').text;
+            var email = document.getElementById('email').value;
+            var emailOption = document.getElementById('domain').value;
+            var zipCode = document.getElementById('zipCode').value;
+            var address = document.getElementById('address').value;
+            var addressDtl = document.getElementById('addressDtl').value;
 
-            if (pwd != pwd2) {
-                alert("비밀번호가 일치하지 않습니다.");
-                pwd2.focus();
+            if (userId == "") {
+                alert("아이디를 입력해 주세요.");
+                userId.focus();
                 return false;
-            } else if (pwd == "" || pwd2 == "") {
-                alert("비밀번호를 입력해 주세요.");
-                pwd2.focus();
-                return false;
-            } else if (userName == "") {
+            }else if (userName == "") {
                 alert("이름을 입력해 주세요.");
                 userName.focus();
                 return false;
-            } else if (userId == "") {
-                alert("아이디를 입력해 주세요.");
-                userId.focus();
+            }else if (pwd == "" || pwd2 == "") {
+                alert("비밀번호를 입력해 주세요.");
+                pwd2.focus();
                 return false;
             }else if(idCheck == "") {
                 alert("아이디 중복확인을 해주세요.");
                 idCheck.focus();
                 return false;
+            }else if(idCheck == "이미 존재하는 아이디입니다."){
+                alert("아이디를 확인해 주세요.");
+                return false;
+            }else if(pwdCheck == "비밀번호가 일치하지 않습니다.") {
+                alert("비밀번호를 확인해 주세요.");
+                return false;
+            }else if(zipCode == "" || address == "" || addressDtl == "") {
+                alert("주소를 확인해 주세요.");
+                return false;
+            }else if(email == "" || emailOption == "") {
+                alert("이메일 주소를 확인해 주세요.");
+                return false;
             }else{
                 frm.submit();
             }
+        }
+        function pwdCheck(){
+            var pwd = document.getElementById('pwd').value;
+            var pwd2 = document.getElementById('pwd2').value;
+
+            if(pwd == pwd2){
+                document.getElementById('pwdMsg').innerText = "비밀번호가 일치합니다.";
+            }else if(pwd != pwd2){
+                document.getElementById('pwdMsg').innerText = "비밀번호가 일치하지 않습니다.";
+            }
+        }
+        function findAddress(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                    var addr = "";
+                    var zonecode = "";
+
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                        zonecode = data.zonecode;
+                    } else {  // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                        zonecode = data.zonecode;
+                    }
+
+                    document.getElementById('zipCode').value = zonecode;
+                    document.getElementById('address').value = addr;
+
+                    document.getElementById('addressDtl').focus();
+                }
+            }).open();
+        }
+        const autoHyphen = (target) => {
+            target.value = target.value
+                .replace(/[^0-9]/g, '')
+                .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+        }
+
+        function setEmailDomain(domain){
+            document.getElementById('domain').value = domain;
         }
     </script>
 
@@ -62,10 +120,21 @@
                 <input  id="userId" th:field="*{user_id}" type="text" placeholder="아이디"> <input id="check" type="button" value="중복확인" onclick="userCheck()"/> <br>
                 <a id="msg"></a><br>
                 <input  id="userName" th:field="*{user_name}" type="text" placeholder="이름"> <br>
-                <input  id="pwd" type="password" th:field="*{password}" placeholder="비밀번호"> <br>
-                <input  id="pwd2" type="password" placeholder="비밀번호 확인"> <br>
-                <input  id="address" type="text" th:field="*{address}"> <br>
-                <button type="button" class="btn-join" onclick="pwdCheck()">회원가입</button>
+                <input  id="pwd" type="password" th:field="*{password}" placeholder="비밀번호" onchange="pwdCheck()"> <br>
+                <input  id="pwd2" type="password" placeholder="비밀번호 확인" onchange="pwdCheck()"> <br>
+                <a id="pwdMsg"></a> <br>
+                <input id="phone" type="text" th:field="*{phone}" placeholder="휴대폰 번호" oninput="autoHyphen(this)" maxlength="13"> <br>
+                <input  id="zipCode" type="text" th:field="*{zipCode}" placeholder="우편번호"> <input type="button" value="주소찾기" onclick="findAddress()"/> <br>
+                <input th:field="*{address}" id="address" type="text" placeholder="주소" style="width:300px" readonly> <input th:field="*{addressDtl}" id="addressDtl" type="text" placeholder="상세주소"> <br>
+                <input th:field="*{email}" id="email" type="text" placeholder="이메일 주소"> @ <input th:field="*{emailOption}" id="domain" type="text">
+                <select onclick="setEmailDomain(this.value);return false;">
+                    <option value="">직접입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="nate.com">nate.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
+                </select> <br>
+                <button type="button" class="btn-join" onclick="joinCheck()">회원가입</button>
             </form>
         </div>
     </div>

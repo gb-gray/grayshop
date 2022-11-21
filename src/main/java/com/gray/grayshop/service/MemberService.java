@@ -29,7 +29,7 @@ public class MemberService {
         List<Member> member = memberRepository.userCheck(user_id);
 
         if(!member.isEmpty()){
-            text = "이미 존재하는 회원입니다.";
+            text = "이미 존재하는 아이디입니다.";
         }else{
             text = "사용할 수 있는 아이디입니다.";
         }
