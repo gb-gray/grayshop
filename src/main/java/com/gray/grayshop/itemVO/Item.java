@@ -17,5 +17,12 @@ public class Item {
     @Column(name = "item_id")
     private Long id;
 
+    @Column(name = "item")
     private String item_name;
+
+    @Column(name = "price")
+    private int price;
+
+    @Column(name = "count")
+    private int count;
 }

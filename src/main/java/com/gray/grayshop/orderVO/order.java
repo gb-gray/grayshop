@@ -17,5 +17,11 @@ public class order {
     @Column(name = "order_id")
     private Long id;
 
+    private String item;
+
+    private int price;
+
+    private int count;
+
 
 }
