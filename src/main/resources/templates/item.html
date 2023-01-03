@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>상품등록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+</head>
+
+<body>
+    <form id="frm" role="form" method="post" action="/item/new" th:object="${itemForm}">
+        <p>상품명 </p> <input id="item" th:field="*{item}" type="text">
+        <p>상품가격 </p> <input id="price" th:field="*{price}" type="text">
+        <p>수량</p> <input id="count" th:field="*{count}" type="number">
+    </form>
+</body>
+</html>
+
